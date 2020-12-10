@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 $LOAD_PATH << Dir.pwd
 
 require 'gosu'
@@ -13,3 +11,5 @@ WINDOW_WIDTH, WINDOW_HEIGHT = 800, 600
 
 $game_window = GameWindow.new
 $game_window.show if __FILE__ == $0
+
+# https://freesound.org/people/supervanz/sounds/428858

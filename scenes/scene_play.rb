@@ -9,6 +9,7 @@ class Scene_Play < Scene_Base
     @person = generate_random_person
     @score_text = Gosu::Font.new(40, :name => "Malgun Gothic", :bold => true)
     @score = 0
+    $bgm.play(true)
   end
 
   def generate_random_person
