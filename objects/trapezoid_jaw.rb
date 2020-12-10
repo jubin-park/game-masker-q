@@ -16,9 +16,7 @@ class TrapezoidJaw < Person
     else
       false
     end
-    @x = WINDOW_WIDTH.to_f
     @angle = 0.0
-    @dx = 2.0
     @da = 1.0
     return
   end

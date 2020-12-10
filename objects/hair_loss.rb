@@ -10,8 +10,6 @@ class HairLoss < Person
     super
     @@images ||= Gosu::Image.load_tiles("images/hair_loss.png", 240, 600)
     @state = ENUM_STATE[rand(ENUM_STATE.length)]
-    @x = WINDOW_WIDTH.to_f
-    @dx = 2.0
     return
   end
 

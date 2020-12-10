@@ -13,6 +13,8 @@ class Person
   ]
 
   def initialize
+    @x = WINDOW_WIDTH.to_f
+    @dx = 2.0
     @direction = DIRECTION_LEFT
     @diagnosing = true
     return
