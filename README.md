@@ -1,4 +1,5 @@
 # game-masker-q
+![logo-en](images/logo_en.png)
 Masker Queue, Arcade genre, is a game picks people in the queue one by one and passes only those who wear mask. 
 This game is created using **Ruby** and **Gosu** (2D Game Development Library).
 
@@ -26,4 +27,4 @@ All you have to do is pressing 4-direction key. You have to move people to the l
   link: https://freesound.org/people/RutgerMuller/sounds/50725/
 
 ## Graphic Resources
-Jubin Park all has graphic credits.
+@jubin-park all has graphic credits.
