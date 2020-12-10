@@ -33,7 +33,7 @@ class Scene_Intro < Scene_Base
 
   def button_down(id)
     case id
-    when Gosu::MsLeft
+    when Gosu::MS_LEFT
       if mask_mouse_on?
         SceneManager.switch_scene(Scene_Play)
       end
