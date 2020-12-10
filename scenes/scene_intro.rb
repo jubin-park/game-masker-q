@@ -6,7 +6,7 @@ class Scene_Intro < Scene_Base
 
     @title_image = Gosu::Image.new("images/title816612.png");
     @title_image2 = Gosu::Image.new("images/title2.png")
-    @logo_image = Gosu::Image.new("images/logo-en.png")
+    @logo_image = Gosu::Image.new("images/logo_en.png")
     @mask_image = Gosu::Image.new("images/mask.png")
     @text = Gosu::Image.from_text("start", 20, width: 100)
     @logo_opacity = 0
