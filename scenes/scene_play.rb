@@ -14,11 +14,12 @@ class Scene_Play < Scene_Base
   DAMAGE_FRAME_DURATION = 1800
 
   def initialize
+    @start_time = Gosu.milliseconds
     @background_image = Gosu::Image.new("images/background.png");
     @person = generate_random_person
     @time_text = Gosu::Font.new(40, :name => "Malgun Gothic", :bold => true)
     @time = Gosu.milliseconds + 60000
-    @score_text = Gosu::Font.new(40, :name => "Malgun Gothic", :bold => true)
+    @score_text = Gosu::Font.new(32, :name => "Malgun Gothic", :bold => true)
     @score = 0
     $bgm.play(true)
     @damage_frame_image = Gosu::Image.new("images/damage_frame.png")
@@ -64,12 +65,12 @@ class Scene_Play < Scene_Base
   def draw
     Gosu.draw_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0xff_eeeeee)
     @background_image.draw(0, 0, 1)
-    t = Gosu.milliseconds
+    t = Gosu.milliseconds - @start_time
     @time_text.draw_text_rel(sprintf("%02d:%02d.%02d", t / 60000, (t / 1000) % 60, t % 1000 / 10),
     WINDOW_WIDTH / 2, 20, 2,
       0.5, 0.0,
       1.0, 1.0, 0xff_404040)
-    @score_text.draw_text_rel("Score #{@score}",
+    @score_text.draw_text_rel("Score (#{@score})",
       WINDOW_WIDTH - 20, 20, 2,
       1.0, 0.0,
       1.0, 1.0, 0xff_111111)
