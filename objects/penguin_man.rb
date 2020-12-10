@@ -12,6 +12,7 @@ class PenguinMan < Person
     @state = ENUM_STATE[rand(ENUM_STATE.length)]
     @x = WINDOW_WIDTH.to_f
     @dx = 2.0
+    return
   end
 
   def update
@@ -39,14 +40,16 @@ class PenguinMan < Person
     else
       raise
     end
+    return
   end
 
   def disposed?
-    @x < -240.0 || @x > WINDOW_WIDTH
+    return @x < -240.0 || @x > WINDOW_WIDTH
   end
 
   def draw
     @@images[@state].draw(@x, 0, 1)
+    return
   end
 
   def passable?

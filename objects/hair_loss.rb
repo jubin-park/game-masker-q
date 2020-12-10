@@ -12,6 +12,7 @@ class HairLoss < Person
     @state = ENUM_STATE[rand(ENUM_STATE.length)]
     @x = WINDOW_WIDTH.to_f
     @dx = 2.0
+    return
   end
 
   def update
@@ -39,6 +40,7 @@ class HairLoss < Person
     else
       raise
     end
+    return
   end
 
   def mask_up
@@ -50,9 +52,11 @@ class HairLoss < Person
     when HairLoss::STATE_MOUTH_MASK
       @state = HairLoss::STATE_MASK
     when HairLoss::STATE_EYES_MASK
+
     else
       raise
     end
+    return
   end
 
   def mask_down
@@ -64,17 +68,20 @@ class HairLoss < Person
     when HairLoss::STATE_MOUTH_MASK
     when HairLoss::STATE_EYES_MASK
       @state = HairLoss::STATE_MASK
+
     else
       raise
     end
+    return
   end
 
   def disposed?
-    @x < -240.0 || @x > WINDOW_WIDTH
+    return @x < -240.0 || @x > WINDOW_WIDTH
   end
 
   def draw
     @@images[@state].draw(@x, 0, 1)
+    return
   end
 
   def passable?

@@ -8,8 +8,7 @@ require 'scenes/scene_intro.rb'
 require 'scenes/scene_play.rb'
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 800, 600
+$bgm = Gosu::Song.new("sounds/duskwalkin.wav");
 
 $game_window = GameWindow.new
 $game_window.show if __FILE__ == $0
-
-# https://freesound.org/people/supervanz/sounds/428858

@@ -3,7 +3,6 @@ require 'scenes/scene_base.rb'
 class Scene_Intro < Scene_Base
   def initialize
     @footstep_sample = Gosu::Sample.new("sounds/footstep.wav")
-    $bgm = Gosu::Song.new("sounds/duskwalkin.wav");
 
     @title_image = Gosu::Image.new("images/title816612.png");
     @title_image2 = Gosu::Image.new("images/title2.png")
@@ -17,6 +16,7 @@ class Scene_Intro < Scene_Base
     @title_theta = 0.0
     @title_opacity = 0
     @phase = 0
+    return
   end
 
   def update
@@ -39,9 +39,11 @@ class Scene_Intro < Scene_Base
     when 2
       @logo_opacity = [@logo_opacity + 2, 0xff].min
       @logo_x = [@logo_x - (@logo_x - 240) / 15.0, 240].max
+
     else
       raise "Unvalid phase value"
     end
+    return
   end
 
   def draw
@@ -61,14 +63,11 @@ class Scene_Intro < Scene_Base
       @logo_image.draw(@logo_x, 120, 0, 1, 1, @logo_opacity << 24 | 0x00_ffffff)
       @mask_image.draw(345, 360, 0, 1, 1, mask_mouse_on? ? 0xff_ffffff : 0xaf_ffffff)
       @text.draw(370, 405, 0, 1, 1, mask_mouse_on? ? 0xff_ffffff : 0xff_000000)
+
     else
       raise "Unvalid phase value"
     end
-  end
-
-  def mask_mouse_on?
-    argb = @mask_image[$game_window.mouse_x.to_i - 345, $game_window.mouse_y.to_i - 360].unpack('C*')
-    return (argb[0] << 24 | argb[1] << 16 | argb[2] << 8 | argb[3]) != 0
+    return
   end
 
   def button_down(id)
@@ -78,5 +77,12 @@ class Scene_Intro < Scene_Base
         SceneManager.switch_scene(Scene_Play)
       end
     end
+    return
+  end
+
+private
+  def mask_mouse_on?
+    argb = @mask_image[$game_window.mouse_x.to_i - 345, $game_window.mouse_y.to_i - 360].unpack('C*')
+    return (argb[0] << 24 | argb[1] << 16 | argb[2] << 8 | argb[3]) != 0
   end
 end

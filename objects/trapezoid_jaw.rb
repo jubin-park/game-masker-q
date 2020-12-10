@@ -20,6 +20,7 @@ class TrapezoidJaw < Person
     @angle = 0.0
     @dx = 2.0
     @da = 1.0
+    return
   end
 
   def update
@@ -50,6 +51,7 @@ class TrapezoidJaw < Person
     else
       raise
     end
+    return
   end
 
   def hair_up
@@ -59,6 +61,7 @@ class TrapezoidJaw < Person
     when STATE_NO_MASK
       @state = STATE_FORHEAD_NO_MASK
     end
+    return
   end
 
   def hair_down
@@ -68,6 +71,7 @@ class TrapezoidJaw < Person
     when STATE_FORHEAD_NO_MASK
       @state = STATE_NO_MASK
     end
+    return
   end
 
   def equip_mask
@@ -75,10 +79,11 @@ class TrapezoidJaw < Person
       @state = STATE_FORHEAD_MASK
       @has_maskitem = false
     end
+    return
   end
 
   def disposed?
-    @x < -240.0 || @x > WINDOW_WIDTH
+    return @x < -240.0 || @x > WINDOW_WIDTH
   end
 
   def draw
@@ -87,6 +92,7 @@ class TrapezoidJaw < Person
       #@@maskitem_image.draw(@x + 70, 140, 2)
       @@maskitem_image.draw_rot(@x + 110, 140, 2, @angle, 0.4, 0.1)
     end
+    return
   end
 
   def passable?

@@ -15,6 +15,7 @@ class Person
   def initialize
     @direction = DIRECTION_LEFT
     @diagnosing = true
+    return
   end
 
   def move_left
@@ -33,6 +34,6 @@ class Person
   end
 
   def diagnosing?
-    @diagnosing ? true : false
+    return @diagnosing ? true : false
   end
 end
