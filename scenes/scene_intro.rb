@@ -2,8 +2,8 @@ require 'scenes/scene_base.rb'
 
 class Scene_Intro < Scene_Base
   def initialize
-    @footstep_sample = Gosu::Sample.new("sounds/footstep.wav")
-
+    @footstep_sample = SoundManager.load_sample("sounds/footstep.wav")
+    
     @title_image = Gosu::Image.new("images/title816612.png");
     @title_image2 = Gosu::Image.new("images/title2.png")
     @logo_image = Gosu::Image.new("images/logo_en.png")
@@ -73,7 +73,7 @@ class Scene_Intro < Scene_Base
   def button_down(id)
     case id
     when Gosu::MS_LEFT
-      if mask_mouse_on?
+      if @phase == 2 && mask_mouse_on?
         SceneManager.switch_scene(Scene_Play)
       end
     end

@@ -11,11 +11,12 @@ class TrapezoidJaw < Person
     @@images ||= Gosu::Image.load_tiles("images/trapezoid_jaw.png", 240, 600)
     @@maskitem_image ||= Gosu::Image.new("images/mask_item.png")
     @state = [STATE_MASK, STATE_NO_MASK][rand(2)]
-    @has_maskitem = if @state == STATE_NO_MASK
-      [true, false][rand(2)]
-    else
-      false
-    end
+    @has_maskitem = [true, false][rand(2)]
+    # if @state == STATE_NO_MASK
+    #   [true, false][rand(2)]
+    # else
+    #   false
+    # end
     @angle = 0.0
     @da = 1.0
     return
@@ -73,11 +74,20 @@ class TrapezoidJaw < Person
   end
 
   def equip_mask
-    if @has_maskitem
+    if @has_maskitem && !mask_on?
       @state = STATE_FORHEAD_MASK
       @has_maskitem = false
+      return true
     end
-    return
+    return false
+  end
+
+  def try_give_life
+    if @has_maskitem && mask_on?
+      @has_maskitem = false
+      return true
+    end
+    return false
   end
 
   def disposed?
@@ -93,7 +103,7 @@ class TrapezoidJaw < Person
     return
   end
 
-  def passable?
+  def mask_on?
     return @state == STATE_MASK || @state == STATE_FORHEAD_MASK
   end
 end

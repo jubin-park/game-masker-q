@@ -50,7 +50,7 @@ class PenguinMan < Person
     return
   end
 
-  def passable?
+  def mask_on?
     return @state == STATE_MASK || @state == STATE_VERTICAL_CLOSED_MASK
   end
 end

@@ -15,7 +15,7 @@ Now then, you can execute *main.rb* and play the game! Please enjoy it. 😋
 `main.rb`
 
 ## How To Play
-All you have to do is pressing 4-direction keys. You have to move people to the left by pressing *Left* key, and move to the right them by *Right* key. For a particular person, you may have to press others, *Up/Down* key.
+All you have to do is pressing *4-direction* keys and *Space-bar* key. By default, You have to move people to the left by pressing *Left* key, and move to the right them by *Right* key. For a particular person, you may have to press others, *Up/Down* and *Space-bar* key.
 
 ## Sound Resource Credits
     filename: sounds/duskwalkin.wav
@@ -25,6 +25,18 @@ All you have to do is pressing 4-direction keys. You have to move people to the 
     filename: sounds/footstep.wav
     author: RutgerMuller
   link: https://freesound.org/people/RutgerMuller/sounds/50725/
+
+    filename: sounds/success.wav
+    author: MattLeschuck
+  link: https://freesound.org/people/MattLeschuck/sounds/511484/
+
+    filename: sounds/warning.wav
+    author: Serithi
+  link: https://freesound.org/people/Serithi/sounds/150326/
+
+    filename: sounds/gameover.wav
+    author: SoundEffectsPodcast_com
+  link: https://freesound.org/people/SoundEffectsPodcast_com/sounds/256091/
 
 ## Graphic Resources
 [@jubin-park](https://github.com/jubin-park) all has graphic credits.

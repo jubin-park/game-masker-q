@@ -82,7 +82,7 @@ class HairLoss < Person
     return
   end
 
-  def passable?
+  def mask_on?
     return @state == STATE_MASK
   end
 end
