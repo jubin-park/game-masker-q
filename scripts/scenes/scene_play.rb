@@ -5,10 +5,10 @@ require 'objects/trapezoid_jaw.rb'
 
 class Scene_Play < Scene_Base
   ENUM_SCORE = [
-    SCORE_LEFT_PASS = 100,
-    SCORE_LEFT_WARNING = (-50),
-    SCORE_RIGHT_PASS = 100,
-    SCORE_RIGHT_WARNING = (-50),
+    SCORE_LEFT_PASS = 200,
+    SCORE_LEFT_WARNING = (-100),
+    SCORE_RIGHT_PASS = 200,
+    SCORE_RIGHT_WARNING = (-100),
   ]
 
   WARNING_FRAME_DURATION = 1800
@@ -19,6 +19,7 @@ class Scene_Play < Scene_Base
     @end_time = 0
     @score = 0
     @life_count = MAX_LIFE_COUNT
+    @game_level = 1
 
     @success_sample = SoundManager.load_sample("sounds/success.wav")
     @warning_sample = SoundManager.load_sample("sounds/warning.wav")
@@ -50,11 +51,11 @@ class Scene_Play < Scene_Base
         if @person.diagnosing?
           if @person.mask_on?
             p "PERFECT"
-            @score += SCORE_LEFT_PASS
+            @score += get_weight_score(SCORE_LEFT_PASS)
             @success_sample.play
           else
             p "BAD"
-            @score += SCORE_LEFT_WARNING
+            @score += get_inverse_weight_score(SCORE_LEFT_WARNING)
             init_warning_frame
             @life_count = [@life_count - 1, 0].max
             if game_over?
@@ -124,11 +125,11 @@ class Scene_Play < Scene_Base
       return if !@person.diagnosing?
       if @person.mask_on?
         p "PERFECT"
-        @score += SCORE_LEFT_PASS
+        @score += get_weight_score(SCORE_LEFT_PASS)
         @success_sample.play
       else
         p "BAD"
-        @score += SCORE_LEFT_WARNING
+        @score += get_inverse_weight_score(SCORE_LEFT_WARNING)
         init_warning_frame
         @life_count = [@life_count - 1, 0].max
         if game_over?
@@ -145,7 +146,7 @@ class Scene_Play < Scene_Base
       return if !@person.diagnosing?
       if @person.mask_on?
         p "BAD"
-        @score += SCORE_RIGHT_WARNING
+        @score += get_inverse_weight_score(SCORE_RIGHT_WARNING)
         init_warning_frame
         @life_count = [@life_count - 1, 0].max
         if game_over?
@@ -156,7 +157,7 @@ class Scene_Play < Scene_Base
         end
       else
         p "PERFECT"
-        @score += SCORE_RIGHT_PASS
+        @score += get_weight_score(SCORE_RIGHT_PASS)
         @success_sample.play
       end
       @person.move_right
@@ -218,5 +219,13 @@ private
   def replay_mouse_on?
     return $game_window.mouse_x >= 336 && $game_window.mouse_x < 336 + 128 &&
       $game_window.mouse_y >= 350 && $game_window.mouse_y < 350 + 36
+  end
+
+  def get_weight_score(score)
+    return (score * [0.0, @person.x / WINDOW_WIDTH].max).to_i
+  end
+
+  def get_inverse_weight_score(score)
+    return (score * [1.0, @person.x / WINDOW_WIDTH].min).to_i
   end
 end

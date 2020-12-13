@@ -12,6 +12,8 @@ class Person
     DIRECTION_RIGHT = 1
   ]
 
+  attr_reader :x
+
   def initialize
     @x = WINDOW_WIDTH.to_f
     @dx = 2.0
