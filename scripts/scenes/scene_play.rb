@@ -12,6 +12,8 @@ class Scene_Play < Scene_Base
     SCORE_BONUS = 50
   ]
 
+  ENUM_ZORDER = []
+
   WARNING_FRAME_DURATION = 1800
   MAX_LIFE_COUNT = 3
 
@@ -20,6 +22,8 @@ class Scene_Play < Scene_Base
     @end_time = 0
     @score = 0
     @life_count = MAX_LIFE_COUNT
+    @person_count = 1
+    @pass_count = 0
 
     @success_sample = SoundManager.load_sample("sounds/success.wav")
     @warning_sample = SoundManager.load_sample("sounds/warning.wav")
@@ -29,16 +33,20 @@ class Scene_Play < Scene_Base
     @life_images = Gosu::Image.load_tiles("images/life.png", 64, 64)
     @time_text = Gosu::Font.new(40, :name => "Malgun Gothic", :bold => true)
     @score_text = Gosu::Font.new(32, :name => "Malgun Gothic", :bold => true)
-    @result_image = Gosu::Image.from_text("Game Over", 60, :width => WINDOW_WIDTH / 2, :align => :center, :italic => true)
-    @replay_image = Gosu::Image.from_text("Replay?", 36, :width => 128, :align => :center, :italic => true)
-    @result_time_text = Gosu::Font.new(28, :name => "Malgun Gothic", :bold => true)
-    @result_score_text = Gosu::Font.new(28, :name => "Malgun Gothic", :bold => true)
     @warning_frame_image = Gosu::Image.new("images/warning_frame.png")
     @warning_frame_duration = 0
     @warning_frame_opacity = 0x0
     @d_opacity = 10
-
+    
     @person = generate_random_person
+
+    @result_image = Gosu::Image.from_text("Game Over", 60, :width => WINDOW_WIDTH / 2, :align => :center, :italic => true)
+    @result_replay_image = Gosu::Image.from_text("Replay?", 36, :width => 128, :align => :center, :italic => true)
+    @result_time_text = Gosu::Font.new(28, :name => "Malgun Gothic", :bold => true)
+    @result_score_text = Gosu::Font.new(28, :name => "Malgun Gothic", :bold => true)
+    @result_passed_number_text = Gosu::Font.new(28, :name => "Malgun Gothic", :bold => true)
+    @result_failed_number_text = Gosu::Font.new(28, :name => "Malgun Gothic", :bold => true)
+
     $bgm.play(true)
 
     return
@@ -52,6 +60,7 @@ class Scene_Play < Scene_Base
           if @person.mask_on?
             p "PERFECT"
             @score += get_weight_score(SCORE_LEFT_PASS)
+            @pass_count += 1
             @success_sample.play
           else
             p "BAD"
@@ -67,6 +76,7 @@ class Scene_Play < Scene_Base
           end
           @person.finalize_diagnosis
         end
+        @person_count += 1
         level = get_game_level
         @person = nil
         @person = generate_random_person
@@ -94,11 +104,13 @@ class Scene_Play < Scene_Base
       Gosu.draw_rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0xa0_000000, 100)
       @result_image.draw(200, 200, 101)
       t = @end_time
-      @result_time_text.draw_markup(sprintf("Playing Time: <c=ffff00>%02d:%02d.%02d\"</c>", t / 60000, (t / 1000) % 60, t % 1000 / 10),
-        288, 270, 101, 1.0, 1.0)
-      @result_score_text.draw_markup("Score: <c=ffff00>#{@score}</c>",
-        364, 300, 101, 1.0, 1.0)
-      @replay_image.draw(336, 350, 101, 1.0, 1.0, replay_mouse_on? ? 0xff_ff0000 : 0xff_ffff00)
+      @result_time_text.draw_markup(sprintf("Playing Time: <c=7fdbda>%02d:%02d.%02d\"</c>", t / 60000, (t / 1000) % 60, t % 1000 / 10),
+        278, 270, 101)
+      @result_score_text.draw_markup("Score: <c=ade498>#{@score}</c>",
+        354, 300, 101)
+      @result_passed_number_text.draw_markup("Pass: <c=ede682>#{@pass_count}</c>", 366, 330, 101)
+      @result_failed_number_text.draw_markup("Fail: <c=febf63>#{@person_count - @pass_count}</c>", 376, 360, 101)
+      @result_replay_image.draw(336, 400, 101, 1.0, 1.0, replay_mouse_on? ? 0xff_ff4646 : 0xff_ffb396)
     else
       @end_time = Gosu.milliseconds - @start_time
       for i in 0...@life_count
@@ -129,6 +141,7 @@ class Scene_Play < Scene_Base
       if @person.mask_on?
         p "PERFECT"
         @score += get_weight_score(SCORE_LEFT_PASS)
+        @pass_count += 1
         @success_sample.play
       else
         p "BAD"
@@ -161,6 +174,7 @@ class Scene_Play < Scene_Base
       else
         p "PERFECT"
         @score += get_weight_score(SCORE_RIGHT_PASS)
+        @pass_count += 1
         @success_sample.play
       end
       @person.move_right
@@ -223,7 +237,7 @@ private
 
   def replay_mouse_on?
     return $game_window.mouse_x >= 336 && $game_window.mouse_x < 336 + 128 &&
-      $game_window.mouse_y >= 350 && $game_window.mouse_y < 350 + 36
+      $game_window.mouse_y >= 400 && $game_window.mouse_y < 400 + 36
   end
 
   def get_weight_score(score)
