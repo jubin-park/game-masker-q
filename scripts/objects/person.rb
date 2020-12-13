@@ -13,6 +13,7 @@ class Person
   ]
 
   attr_reader :x
+  attr_accessor :dx
 
   def initialize
     @x = WINDOW_WIDTH.to_f

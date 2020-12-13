@@ -9,6 +9,7 @@ class Scene_Play < Scene_Base
     SCORE_LEFT_WARNING = (-100),
     SCORE_RIGHT_PASS = 200,
     SCORE_RIGHT_WARNING = (-100),
+    SCORE_BONUS = 50
   ]
 
   WARNING_FRAME_DURATION = 1800
@@ -19,7 +20,6 @@ class Scene_Play < Scene_Base
     @end_time = 0
     @score = 0
     @life_count = MAX_LIFE_COUNT
-    @game_level = 1
 
     @success_sample = SoundManager.load_sample("sounds/success.wav")
     @warning_sample = SoundManager.load_sample("sounds/warning.wav")
@@ -67,8 +67,11 @@ class Scene_Play < Scene_Base
           end
           @person.finalize_diagnosis
         end
+        level = get_game_level
         @person = nil
         @person = generate_random_person
+        @person.dx += level * 0.4
+        p "level = #{level} dx = #{@person.dx}"
       end
       if Gosu.milliseconds < @warning_frame_duration
         @d_opacity *= -1 if @warning_frame_opacity > 0xff || @warning_frame_opacity < 0
@@ -182,8 +185,10 @@ class Scene_Play < Scene_Base
     when Gosu::KB_SPACE
       return if !@person.diagnosing?
       if @person.is_a?(TrapezoidJaw)
-        @person.equip_mask
-        if @person.try_give_life
+        if @person.equip_mask
+          p "bonus score #{SCORE_BONUS}"
+          @score += SCORE_BONUS
+        elsif @person.try_give_life
           @life_count = [@life_count + 1, MAX_LIFE_COUNT].min
           @success_sample.play(1, 2)
         end
@@ -227,5 +232,9 @@ private
 
   def get_inverse_weight_score(score)
     return (score * [1.0, @person.x / WINDOW_WIDTH].min).to_i
+  end
+
+  def get_game_level
+    return (Gosu.milliseconds - @start_time) / 6000
   end
 end
