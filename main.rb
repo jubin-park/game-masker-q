@@ -1,4 +1,4 @@
-$LOAD_PATH << Dir.pwd
+$LOAD_PATH << (Dir.pwd + "/scripts")
 
 require 'gosu'
 require 'gosu_image.rb'
@@ -10,7 +10,6 @@ require 'scenes/scene_play.rb'
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 800, 600
 $bgm = SoundManager.load_song("sounds/duskwalkin.wav");
-#$bgm.volume = 0.05
 
 $game_window = GameWindow.new
 $game_window.show if __FILE__ == $0
