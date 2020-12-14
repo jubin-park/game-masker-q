@@ -1,4 +1,4 @@
-$LOAD_PATH << (Dir.pwd + "/scripts")
+$LOAD_PATH.unshift File.join(File.dirname($0), 'scripts')
 
 require 'gosu'
 require 'gosu_image.rb'
