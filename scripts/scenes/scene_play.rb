@@ -66,7 +66,7 @@ class Scene_Play < Scene_Base
             p "BAD"
             @score += get_inverse_weight_score(SCORE_LEFT_WARNING)
             init_warning_frame
-            @life_count = [@life_count - 1, 0].max
+            @life_count = [@life_count - 1, -1].max
             if game_over?
               $bgm.stop
               @gameover_sample.play
@@ -147,7 +147,7 @@ class Scene_Play < Scene_Base
         p "BAD"
         @score += get_inverse_weight_score(SCORE_LEFT_WARNING)
         init_warning_frame
-        @life_count = [@life_count - 1, 0].max
+        @life_count = [@life_count - 1, -1].max
         if game_over?
           $bgm.stop
           @gameover_sample.play
@@ -164,7 +164,7 @@ class Scene_Play < Scene_Base
         p "BAD"
         @score += get_inverse_weight_score(SCORE_RIGHT_WARNING)
         init_warning_frame
-        @life_count = [@life_count - 1, 0].max
+        @life_count = [@life_count - 1, -1].max
         if game_over?
           $bgm.stop
           @gameover_sample.play
