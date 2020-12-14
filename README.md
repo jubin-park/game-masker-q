@@ -16,7 +16,7 @@ Now then, you can execute *main.rb* and play the game! Please enjoy it. 😋
 
 Or you can build *exe* file with *Ocra* like:
 
-`ocra main.rb --windows --dll ruby_builtin_dlls\libssp-0.dll --output maskerq.exe`
+`ocra main.rb scripts/** images/*.png sounds/*.wav --chdir-first --windows --dll ruby_builtin_dlls\libssp-0.dll --output maskerq.exe`
 
 ## How To Play
 All you have to do is pressing *4-direction* keys and *Space-bar* key. By default, You have to move people to the left by pressing *Left* key, and move to the right them by *Right* key. For a particular person, you may have to press others, *Up/Down* and *Space-bar* key.
