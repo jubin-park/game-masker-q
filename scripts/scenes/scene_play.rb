@@ -232,7 +232,7 @@ private
   end
 
   def game_over?
-    return @life_count <= 0
+    return @life_count < 0
   end
 
   def replay_mouse_on?
