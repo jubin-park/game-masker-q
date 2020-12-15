@@ -7,19 +7,15 @@ class Scene_Base
     end
   end
 
-  def initialize
-
-  end
-
   def update
-
+    raise "Abstract method should be implemented. #{self}"
   end
 
   def draw
-
+    raise "Abstract method should be implemented. #{self}"
   end
 
   def button_down(id)
-
+    raise "Abstract method should be implemented. #{self}"
   end
 end

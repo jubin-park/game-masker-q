@@ -41,10 +41,6 @@ class PenguinMan < Person
     return
   end
 
-  def disposed?
-    return @x < -240.0 || @x > WINDOW_WIDTH
-  end
-
   def draw
     @@images[@state].draw(@x, 0, 1)
     return

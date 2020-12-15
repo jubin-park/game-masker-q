@@ -12,11 +12,6 @@ class TrapezoidJaw < Person
     @@maskitem_image ||= Gosu::Image.new("images/mask_item.png")
     @state = [STATE_MASK, STATE_NO_MASK][rand(2)]
     @has_maskitem = [true, false][rand(2)]
-    # if @state == STATE_NO_MASK
-    #   [true, false][rand(2)]
-    # else
-    #   false
-    # end
     @angle = 0.0
     @da = 1.0
     return
@@ -53,12 +48,26 @@ class TrapezoidJaw < Person
     return
   end
 
+  def draw
+    @@images[@state].draw(@x, 0, 1)
+    if @has_maskitem && (@state == STATE_FORHEAD_MASK || @state == STATE_FORHEAD_NO_MASK)
+      @@maskitem_image.draw_rot(@x + 110, 140, 2, @angle, 0.4, 0.1)
+    end
+    return
+  end
+
+  def mask_on?
+    return @state == STATE_MASK || @state == STATE_FORHEAD_MASK
+  end
+
   def hair_up
     case @state
     when STATE_MASK
       @state = STATE_FORHEAD_MASK
+
     when STATE_NO_MASK
       @state = STATE_FORHEAD_NO_MASK
+
     end
     return
   end
@@ -67,8 +76,10 @@ class TrapezoidJaw < Person
     case @state
     when STATE_FORHEAD_MASK
       @state = STATE_MASK
+
     when STATE_FORHEAD_NO_MASK
       @state = STATE_NO_MASK
+
     end
     return
   end
@@ -88,22 +99,5 @@ class TrapezoidJaw < Person
       return true
     end
     return false
-  end
-
-  def disposed?
-    return @x < -240.0 || @x > WINDOW_WIDTH
-  end
-
-  def draw
-    @@images[@state].draw(@x, 0, 1)
-    if @has_maskitem && (@state == STATE_FORHEAD_MASK || @state == STATE_FORHEAD_NO_MASK)
-      #@@maskitem_image.draw(@x + 70, 140, 2)
-      @@maskitem_image.draw_rot(@x + 110, 140, 2, @angle, 0.4, 0.1)
-    end
-    return
-  end
-
-  def mask_on?
-    return @state == STATE_MASK || @state == STATE_FORHEAD_MASK
   end
 end

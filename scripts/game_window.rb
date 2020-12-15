@@ -1,6 +1,6 @@
 class GameWindow < Gosu::Window
   def initialize
-    super WINDOW_WIDTH, WINDOW_HEIGHT
+    super(WINDOW_WIDTH, WINDOW_HEIGHT)
     self.caption = "MaskerQ"
     SceneManager.switch_scene(Scene_Intro)
     return

@@ -41,4 +41,20 @@ class Person
   def diagnosing?
     return @diagnosing ? true : false
   end
+
+  def disposed?
+    return @x < -240.0 || @x > WINDOW_WIDTH
+  end
+
+  def update
+    raise "Abstract method should be implemented. #{self}"
+  end
+
+  def draw
+    raise "Abstract method should be implemented. #{self}"
+  end
+
+  def mask_on?
+    raise "Abstract method should be implemented. #{self}"
+  end
 end
