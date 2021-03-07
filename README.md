@@ -1,5 +1,6 @@
 # game-masker-q
 ![logo-en](images/logo_en.png)
+![snapshot](snapshot.gif)
 
 Masker Queue, Arcade genre, is a game picks people in the queue one by one and passes only those who wear mask. 
 This game is created using **Ruby** and **Gosu** (2D Game Development Library).
